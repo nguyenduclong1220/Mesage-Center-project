@@ -1,6 +1,20 @@
-compile:
-	gcc -Wall -g3 -fsanitize=address -pthread server.c -o server
-	gcc -Wall -g3 -fsanitize=address -pthread client.c -o client
-FLAGS    = -L /lib64
-LIBS     = -lusb-1.0 -l pthread
+CC=gcc
+CFLAGS=-O3 -Wall
+LIBS=-pthread
+SRC=src
 
+all: server client
+server: server.o string.o
+	$(CC) $(CFLAGS) -fsanitize=address $(LIBS) -o server server.o string.o
+client: client.o string.o
+	$(CC) $(CFLAGS) -fsanitize=address $(LIBS) -o client client.o string.o
+server.o: server.c
+	$(CC) $(CFLAGS) -c server.c
+string.o: string.c
+	$(CC) $(CFLAGS) -c string.c
+client.o: client.c
+	$(CC) $(CFLAGS) -c client.c
+
+.PHONY: clean
+clean:
+	rm -f *.o *.out
