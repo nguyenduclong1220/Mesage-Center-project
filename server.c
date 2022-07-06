@@ -20,12 +20,12 @@ pthread_mutex_t clients_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 
 /* Send message to all clients except sender */
-void send_message(char *s, client_t *np){
+void send_message(char *s, client_t *list){
 	pthread_mutex_lock(&clients_mutex);
 
 	client_t *tmp = root->link;
     while (tmp != NULL) {
-        if (np->uid != tmp->uid) { // all clients except itself.
+        if (list->uid != tmp->uid) { // all clients except itself.
             send(tmp->sockfd, s, strlen(s), 0);
         }
         tmp = tmp->link;
