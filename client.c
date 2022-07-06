@@ -104,7 +104,7 @@ int main(int argc, char **argv){
 		static struct option long_options[] = 
 		{
 			 {"verbose", no_argument,       &verbose_flag, 1},
-          	 {"brief",   no_argument,       &verbose_flag, 0},
+          	 	 {"brief",   no_argument,       &verbose_flag, 0},
 
 			 {"help",	 no_argument,		0, 'h'},
 			 {0, 0, 0, 0}
@@ -142,8 +142,10 @@ int main(int argc, char **argv){
 		}
 	}
 
-	if (verbose_flag)
-    puts ("verbose flag is set");
+	if (verbose_flag) 
+	{
+   	 	puts ("verbose flag is set");
+	}
 
     /* Print any remaining command line arguments (not options). */
      if (optind < argc)
@@ -192,7 +194,7 @@ int main(int argc, char **argv){
 
 		if (scanf("%d", &role) == 0) {
 			printf("Failed\n");
-		};
+		}
 
 		// Send name
 		send(sockfd, name, 32, 0);
@@ -200,6 +202,7 @@ int main(int argc, char **argv){
 		// Check role
 		if (role == 1) 
 		{
+			printf("You are Talker - You can send messages!\n");
 			pthread_t send_msg_thread;
 			if(pthread_create(&send_msg_thread, NULL, (void *) send_msg_handler, NULL) != 0){
 				printf("ERROR: pthread\n");
@@ -209,6 +212,7 @@ int main(int argc, char **argv){
 
 		else if (role == 2)
 		{
+			printf("You are Listener - You can receive messages!\n");
 			pthread_t recv_msg_thread;
 			if(pthread_create(&recv_msg_thread, NULL, (void *) recv_msg_handler, NULL) != 0){
 				printf("ERROR: pthread\n");
@@ -218,6 +222,7 @@ int main(int argc, char **argv){
 
 		else
 		{
+			printf("You are Both - You can send and receive messages!\n");
 			pthread_t send_msg_thread;
 			if(pthread_create(&send_msg_thread, NULL, (void *) send_msg_handler, NULL) != 0){
 				printf("ERROR: pthread\n");
