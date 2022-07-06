@@ -19,7 +19,7 @@ client_t *newClient(int sockfd, struct sockaddr_in addr) {
 	temp->address = addr;
 	temp->sockfd = sockfd;
 	temp->uid = uid++;
-	strncpy(np->name, "NULL", 5);
+	strncpy(temp->name, "NULL", 5);
 	temp->prev = NULL;
     temp->link = NULL;
 
