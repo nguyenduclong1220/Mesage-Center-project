@@ -89,10 +89,10 @@ void help() {
 	printf("If you join the chatroom successfully\n");
 	printf("- Please enter your name\n");
 	printf("- Then, Select your role:\n");
-	printf("\t\t+ Select '1'- Talker if you want to just send messages.\n");
-	printf("\t\t+ Select '2'- Listener if you want to just receive messages.\n");
-	printf("\t\t+ Select '3'- Both if you want to both send and receive messages.\n");
-	printf("- Enter Ctrl + C or exit if you want to leave\n");
+	printf("\t\t+ Select '1'- Talker - Only send messages.\n");
+	printf("\t\t+ Select '2'- Listener - Only receive messages.\n");
+	printf("\t\t+ Select '3'- Both - Both send and receive messages.\n");
+	printf("- Enter Ctrl + C or type exit if you want to leave the chatroom\n");
 
 }
 int main(int argc, char **argv){
