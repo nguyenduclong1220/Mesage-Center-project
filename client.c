@@ -103,11 +103,11 @@ int main(int argc, char **argv){
 	{
 		static struct option long_options[] = 
 		{
-			 {"verbose", no_argument,       &verbose_flag, 1},
-          	 	 {"brief",   no_argument,       &verbose_flag, 0},
+			{"verbose", no_argument,       &verbose_flag, 1},
+          	{"brief",   no_argument,       &verbose_flag, 0},
 
-			 {"help",	 no_argument,		0, 'h'},
-			 {0, 0, 0, 0}
+			{"help",	 no_argument,		0, 'h'},
+			{0, 0, 0, 0}
 		};
 
 		int option_index = 0;
@@ -186,7 +186,7 @@ int main(int argc, char **argv){
 		str_trim_lf(name, strlen(name));
 
 		if (strlen(name) > 32 || strlen(name) < 2){
-			printf("Name must be less than 30 and more than 2 characters.\n");
+			printf("Name must be less than 32 and more than 2 characters.\n");
 			return EXIT_FAILURE;
 		}
 
@@ -236,7 +236,6 @@ int main(int argc, char **argv){
 			}
 		}
 	
-
 		while (1){
 			if(flag){
 				printf("\nBye\n");
