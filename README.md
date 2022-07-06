@@ -1,14 +1,21 @@
-Welcome to my team!
-This project focus on building a simple messaging application. (Apps can be used in a local network).
+Welcome to our Project!
 
-Specification:
-- **Message Center** is a background service that: Receives messages from one or more applications that act as **Talkers**
+MESSAGE CENTER PROJECT.
+
+The Message Center Project will allow members who connect to the same Local Area Network to join and use (send/ receive message) according to their roles
+
+> Specification:
+> 
+- **Message Center** is a background service that: Receive messages from one or more applications that acts as **Talkers**
 - Send the received messages to one or more applications that act as **Listeners**
-- An application can register to Message Center to be either Talker or Listener, or both of them
+- An application can register to Message Center to be a either Talker or Listener, or both of them
 - Work in a Local Network
 
-Requirements:
+> Requirements:
+> 
 - No Login, No Database, No History
-- Select a role when the app starts
+- Select a role when app starts
 - Apps do not poll for incoming data
 - No limited number of App connected to Message Center
+
+Architectural Pattern: Client-Server model using Socket in connection mode (TCP)
