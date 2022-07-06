@@ -1,7 +1,6 @@
 CC=gcc
 CFLAGS=-O3 -Wall
 LIBS=-pthread
-SRC=src
 
 all: server client
 server: server.o string.o
