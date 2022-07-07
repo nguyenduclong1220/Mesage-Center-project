@@ -43,7 +43,7 @@ void send_msg_handler() {
 		}
 		else
 		{
-			sprintf(buffer, "%s: %s", name, message);
+			sprintf(buffer, "%s", message);
 			send(sockfd, buffer, strlen(buffer), 0);
 		}
 
