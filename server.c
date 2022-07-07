@@ -62,11 +62,12 @@ void *handle_client(void *arg){
 		int receive = recv(cli->sockfd, buff_out, BUFFER_SZ, 0);
 		if (receive > 0){
 			if(strlen(buff_out) > 0){
-				sprintf(buff_out, "%s -> %s[%d]\n", buff_out, cli->name, cli->uid);
-				send_message(buff_out, cli);
+				char buff[BUFFER_SZ + 32];
+				sprintf(buff, "%s[%d]: %s\n", cli->name, cli->uid, buff_out);
+				send_message(buff, cli);
 
-				str_trim_lf(buff_out, strlen(buff_out));
-				printf("%s\n", buff_out);
+				str_trim_lf(buff, strlen(buff));
+				printf("%s\n", buff);
 			}
 		} else if (receive == 0 || strcmp(buff_out, "exit") == 0){
 			sprintf(buff_out, "%s[%d] has left\n", cli->name, cli->uid);
