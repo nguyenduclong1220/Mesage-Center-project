@@ -1,6 +1,6 @@
-Welcome to our Project!
+Welcome to our Project! Our team includes 3 members: Karina(Leader), Thomas, Mark. 
 
-MESSAGE CENTER PROJECT.
+Title: MESSAGE CENTER PROJECT.
 
 The Message Center Project will allow members who connect to the same Local Area Network to join and use (send/ receive message) according to their roles
 
