@@ -47,9 +47,11 @@ void *handle_client(void *arg){
 		leave_flag = 1;
 	} else{
 		strcpy(cli->name, name);
-		sprintf(buff_out, "%s[%d] has joined\n", cli->name, cli->uid);
-		printf("%s", buff_out);
+		sprintf(buff_out, "\033[1;34m> %s[%d] has joined\033[1;31m\n", cli->name, cli->uid);
 		send_message(buff_out, cli);
+		sprintf(buff_out, "\033[0m> %s[%d] has joined\n", cli->name, cli->uid);
+		printf("%s", buff_out);
+		
 	}
 
 	bzero(buff_out, BUFFER_SZ);
@@ -63,16 +65,19 @@ void *handle_client(void *arg){
 		if (receive > 0){
 			if(strlen(buff_out) > 0){
 				char buff[BUFFER_SZ + 32];
-				sprintf(buff, "%s[%d]: %s\n", cli->name, cli->uid, buff_out);
+				sprintf(buff, "\033[1;32m> %s[%d]: %s\033[1;31m\n", cli->name, cli->uid, buff_out);
 				send_message(buff, cli);
 
 				str_trim_lf(buff, strlen(buff));
-				printf("%s\n", buff);
+				sprintf(buff, "\033[0m> %s[%d]: %s\n", cli->name, cli->uid, buff_out);
+				printf("%s", buff);
 			}
 		} else if (receive == 0 || strcmp(buff_out, "exit") == 0){
-			sprintf(buff_out, "%s[%d] has left\n", cli->name, cli->uid);
-			printf("%s", buff_out);
+			sprintf(buff_out, "\033[1;34m> %s[%d] has left\033[1;31m\n", cli->name, cli->uid);
 			send_message(buff_out, cli);
+			sprintf(buff_out, "\033[0m> %s[%d] has left\n", cli->name, cli->uid);
+			printf("%s", buff_out);
+			
 			leave_flag = 1;
 		} else {
 			printf("ERROR: -1\n");

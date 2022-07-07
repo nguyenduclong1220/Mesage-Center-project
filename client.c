@@ -27,11 +27,12 @@ void catch_ctrl_c_and_exit(int sig) {
 }
 
 void send_msg_handler() {
+	printf("\033[1;31m");
   	char message[LENGTH] = {};
   	char buffer[LENGTH + 32] = {};
 
   	while(1) {
-		str_overwrite_stdout();
+		
 		if (fgets(message, LENGTH, stdin) == NULL) {
 			printf("Failed\n");
 		}
@@ -54,14 +55,15 @@ void send_msg_handler() {
 }
 
 void recv_msg_handler() {
+	
   	char message[LENGTH] = {};
 
   	while (1) {
+		
 		int receive = recv(sockfd, message, LENGTH, 0);
 		if (receive > 0) 
 		{
 			printf("%s", message);
-			str_overwrite_stdout();
 		} 
 		else if (receive == 0) 
 		{
@@ -69,6 +71,7 @@ void recv_msg_handler() {
 		} 
 		memset(message, 0, sizeof(message));
 	}
+	
 }
 
 // Show help 
@@ -88,6 +91,7 @@ void help() {
 
 }
 int main(int argc, char **argv){
+
 	int index;
 	while (1)
 	{
