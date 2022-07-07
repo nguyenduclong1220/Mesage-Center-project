@@ -46,7 +46,7 @@ void send_msg_handler() {
 			sprintf(buffer, "%s", message);
 			send(sockfd, buffer, strlen(buffer), 0);
 		}
-
+		// clear message and buffer
 		bzero(message, LENGTH);
 		bzero(buffer, LENGTH + 32);
   	}
