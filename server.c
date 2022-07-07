@@ -91,7 +91,7 @@ void *handle_client(void *arg){
 	close(cli->sockfd);
 
   	if (cli == now) { 
-		// remove last node
+		// remove edge node
         now = cli->prev;
         now->link = NULL;
     } else { 
