@@ -23,9 +23,9 @@ Languahe: C
 
 > Run the program:
 > 
-> $ make
-> $ ./server <IP> <port>
-> $ ./client <port>
+-  $ make
+-  $ ./server (IP) (port)
+-  $ ./client (port)
   
 > Reference:
 > 
