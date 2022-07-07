@@ -18,14 +18,13 @@ client_t *root, *now;
 
 pthread_mutex_t clients_mutex = PTHREAD_MUTEX_INITIALIZER;
 
-
 /* Send message to all clients except sender */
 void send_message(char *s, client_t *list){
 	pthread_mutex_lock(&clients_mutex);
 
 	client_t *tmp = root->link;
     while (tmp != NULL) {
-        if (list->uid != tmp->uid) { // all clients except itself.
+        if (list->uid != tmp->uid) { 
             send(tmp->sockfd, s, strlen(s), 0);
         }
         tmp = tmp->link;
@@ -85,18 +84,18 @@ void *handle_client(void *arg){
   	/* Delete client from queue and yield thread */
 	close(cli->sockfd);
 
-  	if (cli == now) { // remove an edge node
+  	if (cli == now) { 
+		// remove last node
         now = cli->prev;
         now->link = NULL;
-    } else { // remove a middle node
+    } else { 
+		// remove a middle node
         cli->prev->link = cli->link;
         cli->link->prev = cli->prev;
     }
 
   	free(cli);
-
   	pthread_detach(pthread_self());
-
 	return NULL;
 }
 
@@ -122,7 +121,7 @@ int main(int argc, char **argv){
 	serv_addr.sin_addr.s_addr = INADDR_ANY;
 	serv_addr.sin_port = htons(port);
 
-  /* Ignore pipe signals */
+  	/* Ignore pipe signals */
 	signal(SIGPIPE, SIG_IGN);
 
 	if(setsockopt(listenfd, SOL_SOCKET,(SO_REUSEPORT | SO_REUSEADDR),(char*)&option,sizeof(option)) < 0){
