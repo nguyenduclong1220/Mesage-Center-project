@@ -18,8 +18,9 @@ The Message Center Project will allow members who connect to the same Local Area
 - Apps do not poll for incoming data
 - No limited number of App connected to Message Center
 
-Architectural Pattern: Client-Server model using Socket in connection mode (TCP) and multithreading for handling multiple clients. 
-Languahe: C
+> Architectural Pattern: Client-Server model using Socket in connection mode (TCP) and multithreading for handling multiple clients. 
+>
+> Language: C
 
 > Run the program:
 > 
