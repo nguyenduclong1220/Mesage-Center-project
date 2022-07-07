@@ -13,6 +13,7 @@
 
 static int verbose_flag;
 
+// message length
 #define LENGTH 2048
 
 // Global variables
@@ -20,7 +21,6 @@ volatile sig_atomic_t flag = 0;
 int sockfd = 0;
 char name[32];
 int role;
-
 
 void catch_ctrl_c_and_exit(int sig) {
     flag = 1;
@@ -32,7 +32,6 @@ void send_msg_handler() {
 
   	while(1) {
 		str_overwrite_stdout();
-		
 		if (fgets(message, LENGTH, stdin) == NULL) {
 			printf("Failed\n");
 		}
@@ -51,36 +50,29 @@ void send_msg_handler() {
 		bzero(message, LENGTH);
 		bzero(buffer, LENGTH + 32);
   	}
-
   	catch_ctrl_c_and_exit(2);
-
 }
 
 void recv_msg_handler() {
-
   	char message[LENGTH] = {};
 
   	while (1) {
-
 		int receive = recv(sockfd, message, LENGTH, 0);
-
-    if (receive > 0) 
-	{
-		printf("%s", message);
-		str_overwrite_stdout();
-    } 
-	else if (receive == 0) 
-	{
-		break;
-    } 
-	
-	memset(message, 0, sizeof(message));
-
-  	}
+		if (receive > 0) 
+		{
+			printf("%s", message);
+			str_overwrite_stdout();
+		} 
+		else if (receive == 0) 
+		{
+			break;
+		} 
+		memset(message, 0, sizeof(message));
+	}
 }
 
+// Show help 
 void help() {
-
 	printf("USAGE:\n\t\t./client <IP> <Port>\n");
 	printf("Or\n");
 	printf("\t\t./client [OPTIONS]\n");
@@ -96,34 +88,26 @@ void help() {
 
 }
 int main(int argc, char **argv){
-
 	int index;
-
 	while (1)
 	{
 		static struct option long_options[] = 
 		{
 			{"verbose", no_argument,       &verbose_flag, 1},
           	{"brief",   no_argument,       &verbose_flag, 0},
-
 			{"help",	 no_argument,		0, 'h'},
 			{0, 0, 0, 0}
 		};
-
 		int option_index = 0;
-
-		index = getopt_long (argc, argv, "h",
-						 long_options, &option_index);
-
+		index = getopt_long (argc, argv, "h", long_options, &option_index);
 		if (index == -1)
 		{
 			break;
 		}
-
 		switch (index)
 		{
 			case 0:
-			/* If this option set a flag, do nothing else now. */
+			// If this option set a flag, do nothing else now
 			if (long_options[option_index].flag != 0)
 				break;
 			printf ("option %s", long_options[option_index].name);
@@ -147,26 +131,23 @@ int main(int argc, char **argv){
    	 	puts ("verbose flag is set");
 	}
 
-    /* Print any remaining command line arguments (not options). */
-     if (optind < argc)
-     {
+    // Print any remaining command line arguments (not options)
+    if (optind < argc)
+    {
 		if(argc <= 2){
 			help();
 			return EXIT_FAILURE;
 		}
 
 		int port = atoi(argv[2]);
-
 		signal(SIGINT, catch_ctrl_c_and_exit);
-
 		struct sockaddr_in server_addr;
 
-		/* Socket settings */
+		// Socket settings 
 		sockfd = socket(AF_INET, SOCK_STREAM, 0);
 		server_addr.sin_family = AF_INET;
 		server_addr.sin_addr.s_addr = inet_addr(argv[1]);
 		server_addr.sin_port = htons(port);
-
 
 		// Connect to Server
 		int err = connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
@@ -196,7 +177,7 @@ int main(int argc, char **argv){
 			printf("Failed\n");
 		}
 
-		// Send name
+		// Send name to server 
 		send(sockfd, name, 32, 0);
 
 		// Check role
@@ -240,15 +221,10 @@ int main(int argc, char **argv){
 			if(flag){
 				printf("\nBye\n");
 				break;
+			}
 		}
-		}
-
 		close(sockfd);
-
 		return EXIT_SUCCESS;
-
-}
-
-  exit (0);
-	
+	}
+ 	exit (0);
 }
