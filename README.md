@@ -18,4 +18,15 @@ The Message Center Project will allow members who connect to the same Local Area
 - Apps do not poll for incoming data
 - No limited number of App connected to Message Center
 
-Architectural Pattern: Client-Server model using Socket in connection mode (TCP)
+Architectural Pattern: Client-Server model using Socket in connection mode (TCP) and multithreading for handling multiple clients. 
+Languahe: C
+
+> Run the program:
+> 
+  **$ make**
+  **$ ./server <IP> <port>
+  $ ./client <port>
+  
+> Reference:
+> 
+  https://github.com/nikhilroxtomar/Chatroom-in-C
