@@ -2,6 +2,9 @@ Welcome to our Project! Our team includes 3 members: Karina(Leader), Thomas, Mar
 
 Title: MESSAGE CENTER PROJECT.
 
+**SOFTWARE DEVELOPMENT LIFE CYCLE DOCUMENTATION**
+> https://torpid-sorrel-047.notion.site/Message-Center-Project-4f3e279e026d4084811a3f2352d5b2ff
+
 The Message Center Project will allow members who connect to the same Local Area Network to join and use (send/ receive message) according to their roles
 
 > Specification:
