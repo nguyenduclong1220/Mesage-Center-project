@@ -91,7 +91,7 @@ void *handle_client(void *arg){
 	close(cli->sockfd);
 `	pthread_mutex_lock(&clients_mutex);
   	if (cli == now) { 
-		// remove last node
+		// remove edge node
         now = cli->prev;
         now->next = NULL;
     } else { 
