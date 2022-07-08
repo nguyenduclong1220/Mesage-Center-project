@@ -22,12 +22,12 @@ pthread_mutex_t clients_mutex = PTHREAD_MUTEX_INITIALIZER;
 void send_message(char *s, client_t *list){
 	pthread_mutex_lock(&clients_mutex);
 
-	client_t *tmp = root->link;
+	client_t *tmp = root->next;
     while (tmp != NULL) {
         if (list->uid != tmp->uid) { 
             send(tmp->sockfd, s, strlen(s), 0);
         }
-        tmp = tmp->link;
+        tmp = tmp->next;
     }
 
 	pthread_mutex_unlock(&clients_mutex);
@@ -89,16 +89,17 @@ void *handle_client(void *arg){
 
   	/* Delete client from queue and yield thread */
 	close(cli->sockfd);
-
+`	pthread_mutex_lock(&clients_mutex);
   	if (cli == now) { 
 		// remove last node
         now = cli->prev;
-        now->link = NULL;
+        now->next = NULL;
     } else { 
 		// remove a middle node
-        cli->prev->link = cli->link;
-        cli->link->prev = cli->prev;
+        cli->prev->next = cli->next;
+        cli->next->prev = cli->prev;
     }
+	pthread_mutex_unlock(&clients_mutex);
 
   	free(cli);
   	pthread_detach(pthread_self());
@@ -155,17 +156,19 @@ int main(int argc, char **argv){
 	while(1){
 		socklen_t clilen = sizeof(cli_addr);
 		connfd = accept(listenfd, (struct sockaddr*)&cli_addr, &clilen);
+		
+		pthread_mutex_lock(&clients_mutex);
 
 		/* Add client to the queue and fork thread */
 		client_t *cli = newClient(connfd, cli_addr);
 		cli->prev = now;
-        now->link = cli;
+        now->next = cli;
         now = cli;
+
+		pthread_mutex_unlock(&clients_mutex);
 
 		pthread_create(&tid, NULL, &handle_client, (void*)cli);
 
-		/* Reduce CPU usage */
-		sleep(1);
 	}
 
 	return EXIT_SUCCESS;

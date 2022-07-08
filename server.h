@@ -10,7 +10,7 @@ typedef struct client{
 	int uid;
 	char name[32];
 	struct client* prev;
-    struct client* link;
+    struct client* next;
 } client_t;
 
 // create a new client
@@ -21,7 +21,7 @@ client_t *newClient(int sockfd, struct sockaddr_in addr) {
 	temp->uid = uid++;
 	strncpy(temp->name, "NULL", 5);
 	temp->prev = NULL;
-    temp->link = NULL;
+    temp->next = NULL;
 
 	return temp;
 }
